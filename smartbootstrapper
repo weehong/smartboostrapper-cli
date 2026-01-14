@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# SmartBootstrapper CLI Wrapper Script
+# This script provides a convenient way to run the SmartBootstrapper CLI tool.
+
+set -e
+
+# Determine the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# JAR file location
+JAR_FILE="${SCRIPT_DIR}/target/smartbootstrapper-cli-1.0.0.jar"
+
+# Java options
+JAVA_OPTS="${JAVA_OPTS:--Xmx512m}"
+
+# Check if Java is installed
+if ! command -v java &> /dev/null; then
+    echo "Error: Java is not installed or not in PATH"
+    echo "Please install Java 21 or later and try again."
+    exit 1
+fi
+
+# Check Java version
+JAVA_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d'.' -f1)
+if [ "$JAVA_VERSION" -lt 21 ]; then
+    echo "Error: Java 21 or later is required (found Java $JAVA_VERSION)"
+    exit 1
+fi
+
+# Check if JAR file exists
+if [ ! -f "$JAR_FILE" ]; then
+    echo "Error: JAR file not found at $JAR_FILE"
+    echo "Please build the project first with: mvn clean package"
+    exit 1
+fi
+
+# Run the CLI tool
+exec java $JAVA_OPTS -jar "$JAR_FILE" "$@"

@@ -1,0 +1,24 @@
+#-------------------------------------------------------------------------------
+#               Qodana analysis is configured by qodana.yaml file
+#             https://www.jetbrains.com/help/qodana/qodana-yaml.html
+#-------------------------------------------------------------------------------
+version: "1.0"
+
+profile:
+  name: qodana.starter
+
+bootstrap: sh ./prepare-qodana.sh
+
+exclude:
+  - name: SpringBootApplicationYaml
+    paths:
+      - src/main/resources/application.yaml
+      - src/test/resources/application-test.yaml
+
+projectJDK: "21"
+linter: jetbrains/qodana-jvm:2025.3
+
+failureConditions:
+  testCoverageThresholds:
+    total: 80
+    fresh: 80

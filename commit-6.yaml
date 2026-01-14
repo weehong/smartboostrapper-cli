@@ -1,0 +1,51 @@
+# Commit 6: Generic helpers and response wrappers
+# feat(shared): add generic helpers and response wrappers
+sourceRepository: "./commits"
+sourceType: zip
+
+files:
+  # Repository Helper
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/helpers/RepositoryHelper.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/helpers/RepositoryHelper.java"
+
+  # Validation Helper
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/helpers/ValidationHelper.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/helpers/ValidationHelper.java"
+
+  # Generic service interface
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/interfaces/IGenericService.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/interfaces/IGenericService.java"
+
+  # UUID Repository
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/repositories/UuidRepository.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/repositories/UuidRepository.java"
+
+  # Response models
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/responses/ApiResponse.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/responses/ApiResponse.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/responses/PagedResponse.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/responses/PagedResponse.java"
+
+  # Tests for helpers and responses
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/test/java/com/upmatches/app/shared/core/helpers/RepositoryHelperTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/core/helpers/RepositoryHelperTest.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/test/java/com/upmatches/app/shared/core/helpers/ValidationHelperTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/core/helpers/ValidationHelperTest.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/test/java/com/upmatches/app/shared/core/responses/ApiResponseTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/core/responses/ApiResponseTest.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/test/java/com/upmatches/app/shared/core/responses/PagedResponseTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/core/responses/PagedResponseTest.java"

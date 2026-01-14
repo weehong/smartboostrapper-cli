@@ -1,0 +1,102 @@
+services:
+  # 1. Prometheus (The Collector)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: local-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --web.enable-remote-write-receiver
+      - --enable-feature=native-histograms
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
+    # This mapping is crucial for Linux users to allow the container to see "localhost"
+    # It works out-of-the-box on Docker Desktop for Mac/Windows, but keeping it makes this file cross-platform.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # 2. Grafana (The Dashboard)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: local-grafana
+    user: root
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=vernon
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+
+  loki:
+    image: grafana/loki:latest
+    container_name: local-loki
+    user: root
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki.yaml:/etc/loki/local-config.yaml
+      - loki_data:/tmp/loki
+    command: -config.file=/etc/loki/local-config.yaml
+
+  # 4. Tempo (Distributed Tracing)
+  tempo:
+    image: grafana/tempo:latest
+    container_name: local-tempo
+    user: root
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+      - tempo_data:/tmp/tempo
+    ports:
+      - "3200:3200"   # Tempo
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP
+    depends_on:
+      - loki
+      - prometheus
+
+  # 5. k6 (Load Testing)
+  k6:
+    image: grafana/k6:latest
+    container_name: local-k6
+    ports:
+      - "6565:6565"
+    environment:
+      - K6_PROMETHEUS_RW_SERVER_URL=http://prometheus:9090/api/v1/write
+      - K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM=true
+    volumes:
+      - ./k6:/scripts
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: run -o experimental-prometheus-rw --tag testid=my-k6-run /scripts/test.js
+    depends_on:
+      - prometheus
+
+  # 6. Postgres Exporter (Database Monitoring)
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter
+    container_name: local-postgres-exporter
+    ports:
+      - "9187:9187"
+    environment:
+      # Format: postgresql://user:password@host:port/database?sslmode=disable
+      # Using host.docker.internal to connect to Postgres running on the host
+      - DATA_SOURCE_NAME=postgresql://vernon:password@localhost:5432/upmatches?sslmode=disable
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+  tempo_data:

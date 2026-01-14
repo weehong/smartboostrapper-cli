@@ -1,0 +1,71 @@
+# Commit 5: Exception handling and service executor
+# feat(core): add exception handling and service executor
+sourceRepository: "./commits"
+sourceType: zip
+
+files:
+  # Updated pom.xml with required dependencies
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "pom.xml"
+    destinationPath: "pom.xml"
+
+  # Service Operation Executor
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/utils/ServiceOperationExecutor.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/utils/ServiceOperationExecutor.java"
+
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/constants/ServiceOperationExecutorConstant.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/constants/ServiceOperationExecutorConstant.java"
+
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/enums/OperationStatus.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/enums/OperationStatus.java"
+
+  # Global Exception Handler
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/handlers/GlobalExceptionHandler.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/handlers/GlobalExceptionHandler.java"
+
+  # Exception types
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/types/BaseException.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/types/BaseException.java"
+
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/types/ExceptionFactory.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/types/ExceptionFactory.java"
+
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/types/ExternalServiceException.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/types/ExternalServiceException.java"
+
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/types/InvalidFileException.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/types/InvalidFileException.java"
+
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/types/ResourceNotFoundException.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/types/ResourceNotFoundException.java"
+
+  # Updated application YAML
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/main/resources/application.yaml"
+    destinationPath: "src/main/resources/application.yaml"
+
+  # Tests for exception handling and service executor
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/test/java/com/upmatches/app/shared/core/exceptions/handlers/GlobalExceptionHandlerTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/core/exceptions/handlers/GlobalExceptionHandlerTest.java"
+
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/test/java/com/upmatches/app/shared/core/exceptions/types/BaseExceptionTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/core/exceptions/types/BaseExceptionTest.java"
+
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/test/java/com/upmatches/app/shared/core/exceptions/types/ExternalServiceExceptionTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/core/exceptions/types/ExternalServiceExceptionTest.java"
+
+  - commit: "e9a95d5467f59091d44ed26feca457bf2503d5f8"
+    sourcePath: "src/test/java/com/upmatches/app/shared/core/utils/ServiceOperationExecutorTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/core/utils/ServiceOperationExecutorTest.java"

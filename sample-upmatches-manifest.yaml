@@ -1,0 +1,109 @@
+# Sample manifest for bootstrapping a new project from upmatches source code
+# This manifest uses ZIP-based commit snapshots instead of a Git repository
+
+# Path to directory containing commit ZIP files (format: {project}-{commitHash}.zip)
+sourceRepository: "./commits"
+
+# Source type: "zip" for ZIP archives, "git" for Git repositories
+sourceType: zip
+
+# Files to harvest from the source commits
+files:
+  # Core application structure
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/UpmatchesApplication.java"
+    destinationPath: "src/main/java/com/example/myapp/MyApplication.java"
+
+  # Service Operation Executor - centralized service operation handling
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/utils/ServiceOperationExecutor.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/utils/ServiceOperationExecutor.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/constants/ServiceOperationExecutorConstant.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/constants/ServiceOperationExecutorConstant.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/enums/OperationStatus.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/enums/OperationStatus.java"
+
+  # Exception handling framework
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/handlers/GlobalExceptionHandler.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/handlers/GlobalExceptionHandler.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/types/BaseException.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/types/BaseException.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/types/ResourceNotFoundException.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/types/ResourceNotFoundException.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/exceptions/types/ExternalServiceException.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/exceptions/types/ExternalServiceException.java"
+
+  # Response models
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/responses/ApiResponse.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/responses/ApiResponse.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/responses/PagedResponse.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/responses/PagedResponse.java"
+
+  # Helper utilities
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/helpers/ValidationHelper.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/helpers/ValidationHelper.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/core/helpers/RepositoryHelper.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/core/helpers/RepositoryHelper.java"
+
+  # Database configuration
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/database/configurations/DatabaseConfiguration.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/database/configurations/DatabaseConfiguration.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/database/constants/DatabaseConstants.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/database/constants/DatabaseConstants.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/database/enums/DatabaseType.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/database/enums/DatabaseType.java"
+
+  # Logging aspects
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/logging/aspects/LogAspect.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/logging/aspects/LogAspect.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/logging/constants/AspectConstant.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/logging/constants/AspectConstant.java"
+
+  # Metrics configuration
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/metrics/configurations/MetricsConfiguration.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/metrics/configurations/MetricsConfiguration.java"
+
+  # OpenAPI configuration
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/openapi/configurations/OpenApiConfiguration.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/openapi/configurations/OpenApiConfiguration.java"
+
+  # Tracing configuration
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/tracing/configurations/TracingConfiguration.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/tracing/configurations/TracingConfiguration.java"
+
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/java/com/upmatches/app/shared/tracing/filters/TracingMdcFilter.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/tracing/filters/TracingMdcFilter.java"
+
+  # Application configuration files
+  - commit: "934851238e4fa373202e2cbbcc6f233f0b712ddc"
+    sourcePath: "src/main/resources/application.yaml"
+    destinationPath: "src/main/resources/application.yaml"

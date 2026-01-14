@@ -1,0 +1,52 @@
+# Commit 1: Bootstrap Spring Boot project
+# chore(init): bootstrap Spring Boot project
+sourceRepository: "./commits"
+sourceType: zip
+
+files:
+  # Git configuration
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: ".gitattributes"
+    destinationPath: ".gitattributes"
+
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: ".gitignore"
+    destinationPath: ".gitignore"
+
+  # Maven wrapper
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: ".mvn/wrapper/maven-wrapper.properties"
+    destinationPath: ".mvn/wrapper/maven-wrapper.properties"
+
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: "mvnw"
+    destinationPath: "mvnw"
+
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: "mvnw.cmd"
+    destinationPath: "mvnw.cmd"
+
+  # Maven configuration
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: "pom.xml"
+    destinationPath: "pom.xml"
+
+  # Main application
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: "src/main/java/com/upmatches/app/UpmatchesApplication.java"
+    destinationPath: "src/main/java/com/example/myapp/MyApplication.java"
+
+  # Application properties
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: "src/main/resources/application.properties"
+    destinationPath: "src/main/resources/application.properties"
+
+  # Main application test
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: "src/test/java/com/upmatches/app/UpmatchesApplicationTests.java"
+    destinationPath: "src/test/java/com/example/myapp/MyApplicationTests.java"
+
+  # Documentation
+  - commit: "d3d5969bd815e3b89a66182d7901719a5276e4a5"
+    sourcePath: "docs/docs_suggestion.md"
+    destinationPath: "docs/docs_suggestion.md"

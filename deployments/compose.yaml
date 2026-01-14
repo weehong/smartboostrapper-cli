@@ -1,0 +1,89 @@
+services:
+  # Upmatches Application Service
+  upmatches-app:
+    image: ${UPMATCHES_APP_IMAGE}
+    container_name: upmatches-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # General Configuration
+      TZ: Asia/Singapore
+
+      # Server Configuration
+      SERVER_PORT: 8100
+      SPRING_PROFILE: ${SPRING_PROFILE:-local}
+
+      # Database Configuration
+      POSTGRES_DB_HOST: postgres
+      POSTGRES_DB_NAME: ${POSTGRES_DB_NAME:-upmatches}
+      POSTGRES_DB_PASS: ${POSTGRES_DB_PASS:-upmatches123}
+      POSTGRES_DB_PORT: 5432
+      POSTGRES_DB_USER: ${POSTGRES_DB_USER:-upmatches}
+
+      # Database Pool Configuration
+      DB_POOL_SIZE: ${DB_POOL_SIZE:-10}
+      DB_POOL_MIN_IDLE: ${DB_POOL_MIN_IDLE:-2}
+      DB_IDLE_TIMEOUT: ${DB_IDLE_TIMEOUT:-300000}
+      DB_MAX_LIFETIME: ${DB_MAX_LIFETIME:-1800000}
+      DB_CONNECTION_TIMEOUT: ${DB_CONNECTION_TIMEOUT:-30000}
+      DB_LEAK_DETECTION: ${DB_LEAK_DETECTION:-60000}
+
+      # Auth0 Configuration
+      AUTH0_DOMAIN: ${AUTH0_DOMAIN}
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
+
+      # CORS Configuration
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000}
+      CORS_ALLOWED_METHODS: ${CORS_ALLOWED_METHODS:-GET,POST,PUT,PATCH,DELETE,OPTIONS}
+      CORS_ALLOWED_HEADERS: ${CORS_ALLOWED_HEADERS:-Authorization,Content-Type,Accept,X-Request-Id}
+      CORS_EXPOSED_HEADERS: ${CORS_EXPOSED_HEADERS:-X-Request-Id}
+      CORS_ALLOW_CREDENTIALS: ${CORS_ALLOW_CREDENTIALS:-true}
+      CORS_MAX_AGE: ${CORS_MAX_AGE:-3600}
+
+      # Logging Configuration
+      SHOW_SQL_FLAG: ${SHOW_SQL_FLAG:-false}
+    ports:
+      - "${APP_PORT:-8100}:8100"
+    volumes:
+      - app_logs:/app/logs
+    networks:
+      - upmatches-network
+    healthcheck:
+      test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8100/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 90s
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: upmatches-postgres
+    environment:
+      TZ: Asia/Singapore
+      POSTGRES_DB: ${POSTGRES_DB_NAME:-upmatches}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASS:-upmatches123}
+      POSTGRES_USER: ${POSTGRES_DB_USER:-upmatches}
+    ports:
+      - "${POSTGRES_DB_PORT:-54321}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - upmatches-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_DB_USER:-upmatches} -d ${POSTGRES_DB_NAME:-upmatches}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  postgres_data:
+    driver: local
+  app_logs:
+    driver: local
+
+networks:
+  upmatches-network:
+    driver: bridge

@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 5s # Scrape often for local dev (default is usually 1m)
+
+scrape_configs:
+  # 1. Monitor Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # 2. Monitor your .NET API
+  - job_name: 'dotnet-api'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['host.docker.internal:5000'] # Change 5000 to your .NET port
+
+  # 3. Monitor your Spring Boot API
+  - job_name: 'upmatches'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['host.docker.internal:8080'] # Change 8080 to your Java port
+
+  # 4. Monitor Postgres Database
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']

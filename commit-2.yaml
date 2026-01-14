@@ -1,0 +1,125 @@
+# Commit 2: CI/CD and deployment configuration
+# ci: add gitlab pipeline and deployment configuration
+sourceRepository: "./commits"
+sourceType: zip
+
+files:
+  # Updated gitignore
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: ".gitignore"
+    destinationPath: ".gitignore"
+
+  # GitLab CI/CD
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: ".gitlab-ci.yaml"
+    destinationPath: ".gitlab-ci.yaml"
+
+  # Deployment files
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "deployments/.env.compose.example"
+    destinationPath: "deployments/.env.compose.example"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "deployments/.env.docker.example"
+    destinationPath: "deployments/.env.docker.example"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "deployments/Dockerfile"
+    destinationPath: "deployments/Dockerfile"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "deployments/compose.yaml"
+    destinationPath: "deployments/compose.yaml"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "deployments/docker.sh"
+    destinationPath: "deployments/docker.sh"
+
+  # Documentation structure
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/01-architecture/context.md"
+    destinationPath: "docs/01-architecture/context.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/01-architecture/quality.md"
+    destinationPath: "docs/01-architecture/quality.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/02-design/business-flows.md"
+    destinationPath: "docs/02-design/business-flows.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/02-design/data-model.md"
+    destinationPath: "docs/02-design/data-model.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/02-design/security.md"
+    destinationPath: "docs/02-design/security.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/03-technical/api-reference.md"
+    destinationPath: "docs/03-technical/api-reference.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/03-technical/setup.md"
+    destinationPath: "docs/03-technical/setup.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/03-technical/testing.md"
+    destinationPath: "docs/03-technical/testing.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/04-operations/configuration.md"
+    destinationPath: "docs/04-operations/configuration.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/04-operations/deployment.md"
+    destinationPath: "docs/04-operations/deployment.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/04-operations/runbook.md"
+    destinationPath: "docs/04-operations/runbook.md"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "docs/documentation_guidelines.md"
+    destinationPath: "docs/documentation_guidelines.md"
+
+  # Quality analysis configuration
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "prepare-qodana.sh"
+    destinationPath: "prepare-qodana.sh"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "qodana-settings.xml"
+    destinationPath: "qodana-settings.xml"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "qodana.yaml"
+    destinationPath: "qodana.yaml"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "sonar-project.properties"
+    destinationPath: "sonar-project.properties"
+
+  # Updated pom.xml with jacoco and checkstyle
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "pom.xml"
+    destinationPath: "pom.xml"
+
+  # Application YAML (migrated from properties)
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "src/main/resources/application.yaml"
+    destinationPath: "src/main/resources/application.yaml"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "src/main/resources/application-openapi.yaml"
+    destinationPath: "src/main/resources/application-openapi.yaml"
+
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "src/main/resources/application-prod.yaml"
+    destinationPath: "src/main/resources/application-prod.yaml"
+
+  # OpenAPI configuration
+  - commit: "ef5eb38b3d3385110a8f6802cfed07324699b071"
+    sourcePath: "src/main/java/com/upmatches/app/shared/openapi/configurations/OpenApiConfiguration.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/openapi/configurations/OpenApiConfiguration.java"

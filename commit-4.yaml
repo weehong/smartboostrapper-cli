@@ -1,0 +1,76 @@
+# Commit 4: HikariCP datasource configuration
+# feat(database): add hikaricp datasource configuration
+sourceRepository: "./commits"
+sourceType: zip
+
+files:
+  # Updated pom.xml with spring-data-jpa, lombok, database drivers
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "pom.xml"
+    destinationPath: "pom.xml"
+
+  # Database configuration
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/database/configurations/DatabaseConfiguration.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/database/configurations/DatabaseConfiguration.java"
+
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/database/constants/DatabaseConstants.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/database/constants/DatabaseConstants.java"
+
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/database/enums/DatabaseType.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/database/enums/DatabaseType.java"
+
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/database/properties/DatabaseProperty.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/database/properties/DatabaseProperty.java"
+
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/database/properties/HikariProperty.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/database/properties/HikariProperty.java"
+
+  # Updated application YAML with datasource and JPA settings
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/main/resources/application.yaml"
+    destinationPath: "src/main/resources/application.yaml"
+
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/main/resources/application-prod.yaml"
+    destinationPath: "src/main/resources/application-prod.yaml"
+
+  # Test resources
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/test/resources/application-test.yaml"
+    destinationPath: "src/test/resources/application-test.yaml"
+
+  # Database tests
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/test/java/com/upmatches/app/shared/database/configurations/DatabaseConfigurationTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/database/configurations/DatabaseConfigurationTest.java"
+
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/test/java/com/upmatches/app/shared/database/constants/DatabaseConstantsTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/database/constants/DatabaseConstantsTest.java"
+
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/test/java/com/upmatches/app/shared/database/enums/DatabaseTypeTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/database/enums/DatabaseTypeTest.java"
+
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/test/java/com/upmatches/app/shared/database/properties/DatabasePropertyTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/database/properties/DatabasePropertyTest.java"
+
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/test/java/com/upmatches/app/shared/database/properties/HikariPropertyTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/database/properties/HikariPropertyTest.java"
+
+  # Metrics configuration test
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/test/java/com/upmatches/app/shared/metrics/configurations/MetricsConfigurationTest.java"
+    destinationPath: "src/test/java/com/example/myapp/shared/metrics/configurations/MetricsConfigurationTest.java"
+
+  # Updated main application test
+  - commit: "4aab003b52219114dff2f8693a9613da000f409a"
+    sourcePath: "src/test/java/com/upmatches/app/UpmatchesApplicationTests.java"
+    destinationPath: "src/test/java/com/example/myapp/MyApplicationTests.java"

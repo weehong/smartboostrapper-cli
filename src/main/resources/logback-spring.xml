@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- Spring Properties -->
+    <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="upmatches"/>
+    <springProperty scope="context" name="lokiEnabled" source="app.logging.loki.enabled" defaultValue="false"/>
+    <springProperty scope="context" name="lokiUrl" source="app.logging.loki.url" defaultValue="http://localhost:3100/loki/api/v1/push"/>
+    <springProperty scope="context" name="lokiBatchSize" source="app.logging.loki.batch-size" defaultValue="1000"/>
+    <springProperty scope="context" name="lokiBatchTimeout" source="app.logging.loki.batch-timeout-ms" defaultValue="5000"/>
+    <springProperty scope="context" name="activeProfile" source="spring.profiles.active" defaultValue="default"/>
+
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} [%X{traceId:-}] [%X{spanId:-}] [%X{requestId:-}] [%X{userId:-}] - %msg%n"/>
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- File Appender -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/upmatches.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/upmatches-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Async File Appender for Production -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE"/>
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>false</includeCallerData>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <!-- Loki Appender - Development (no batching) -->
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <url>${lokiUrl}</url>
+        </http>
+        <format>
+            <label>
+                <pattern>app=${appName},host=${HOSTNAME},level=%level,env=dev</pattern>
+            </label>
+            <message>
+                <pattern>{"timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}","level":"%level","logger":"%logger{36}","thread":"%thread","traceId":"%X{traceId:-}","spanId":"%X{spanId:-}","requestId":"%X{requestId:-}","userId":"%X{userId:-}","message":"%msg"}</pattern>
+            </message>
+            <sortByTime>true</sortByTime>
+        </format>
+    </appender>
+
+    <!-- Loki Appender - Production (with batching and async) -->
+    <appender name="LOKI_PROD" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <url>${lokiUrl}</url>
+            <!-- Connection settings for production -->
+            <connectionTimeoutMs>5000</connectionTimeoutMs>
+            <requestTimeoutMs>10000</requestTimeoutMs>
+        </http>
+        <format>
+            <label>
+                <pattern>app=${appName},host=${HOSTNAME},level=%level,env=prod</pattern>
+            </label>
+            <message>
+                <pattern>{"timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}","level":"%level","logger":"%logger{36}","thread":"%thread","traceId":"%X{traceId:-}","spanId":"%X{spanId:-}","requestId":"%X{requestId:-}","userId":"%X{userId:-}","message":"%msg"}</pattern>
+            </message>
+            <sortByTime>true</sortByTime>
+        </format>
+        <!-- Batching configuration for production performance -->
+        <batchMaxItems>${lokiBatchSize}</batchMaxItems>
+        <batchTimeoutMs>${lokiBatchTimeout}</batchTimeoutMs>
+        <!-- Send logs asynchronously -->
+        <sendQueueMaxBytes>41943040</sendQueueMaxBytes>
+        <!-- Retry on failure -->
+        <internalQueuesCheckTimeoutMs>25</internalQueuesCheckTimeoutMs>
+        <useDirectBuffers>true</useDirectBuffers>
+        <drainOnStop>true</drainOnStop>
+    </appender>
+
+    <!-- =========================================================================
+         Profile-specific logging configurations
+         ========================================================================= -->
+
+    <!-- Default: Console only (development) -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- Development with Loki enabled -->
+    <springProfile name="dev | development | local">
+        <if condition='property("lokiEnabled").equals("true")'>
+            <then>
+                <root level="DEBUG">
+                    <appender-ref ref="CONSOLE"/>
+                    <appender-ref ref="LOKI"/>
+                </root>
+            </then>
+        </if>
+    </springProfile>
+
+    <!-- SIT: Console + File + Loki (if enabled) -->
+    <springProfile name="sit | staging">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ASYNC_FILE"/>
+        </root>
+        <if condition='property("lokiEnabled").equals("true")'>
+            <then>
+                <root level="INFO">
+                    <appender-ref ref="CONSOLE"/>
+                    <appender-ref ref="ASYNC_FILE"/>
+                    <appender-ref ref="LOKI_PROD"/>
+                </root>
+            </then>
+        </if>
+    </springProfile>
+
+    <!-- Production: Console + Async File + Loki (with batching) -->
+    <springProfile name="prod | production">
+        <root level="WARN">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ASYNC_FILE"/>
+        </root>
+
+        <!-- Application-specific loggers at INFO level -->
+        <logger name="com.upmatches" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ASYNC_FILE"/>
+        </logger>
+
+        <!-- Enable Loki for production with batching -->
+        <if condition='property("lokiEnabled").equals("true")'>
+            <then>
+                <root level="WARN">
+                    <appender-ref ref="CONSOLE"/>
+                    <appender-ref ref="ASYNC_FILE"/>
+                    <appender-ref ref="LOKI_PROD"/>
+                </root>
+
+                <logger name="com.upmatches" level="INFO" additivity="false">
+                    <appender-ref ref="CONSOLE"/>
+                    <appender-ref ref="ASYNC_FILE"/>
+                    <appender-ref ref="LOKI_PROD"/>
+                </logger>
+            </then>
+        </if>
+    </springProfile>
+</configuration>

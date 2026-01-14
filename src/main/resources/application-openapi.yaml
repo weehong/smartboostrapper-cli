@@ -1,0 +1,111 @@
+# =============================================================================
+# OpenAPI Generation Configuration
+# =============================================================================
+# Used by CI/CD to generate OpenAPI specification without a real database.
+# Activate with: -Dspring.profiles.active=openapi
+# =============================================================================
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: upmatches
+
+  datasource:
+    url: jdbc:h2:mem:openapi;DB_CLOSE_DELAY=-1;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false
+
+# =============================================================================
+# Application Configuration - Disabled for OpenAPI generation
+# =============================================================================
+app:
+  logging:
+    aspect:
+      enabled: false
+      slow-execution-threshold-ms: 1000
+    loki:
+      enabled: false
+      url: http://localhost:3100/loki/api/v1/push
+      batch-size: 1000
+      batch-timeout-ms: 5000
+  tracing:
+    enabled: false
+    sampling-probability: 0.0
+
+# =============================================================================
+# Auth0 Configuration - Mock values for OpenAPI generation
+# =============================================================================
+auth0:
+  domain: openapi.auth0.com
+  audience: https://api.openapi.local
+  roles-claim: https://upmatches.com/roles
+
+# =============================================================================
+# CORS Configuration
+# =============================================================================
+cors:
+  allowed-origins: http://localhost:3000
+  allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+  allowed-headers: Authorization,Content-Type,Accept,X-Request-Id
+  exposed-headers: X-Request-Id
+  allow-credentials: true
+  max-age: 3600
+
+# =============================================================================
+# Actuator Configuration
+# =============================================================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 0.0
+  metrics:
+    tags:
+      application: upmatches
+
+# =============================================================================
+# SpringDoc Configuration - Enabled for OpenAPI generation
+# =============================================================================
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+    try-it-out-enabled: true
+  show-actuator: false
+
+# =============================================================================
+# Logging Configuration
+# =============================================================================
+logging:
+  level:
+    root: WARN
+    com.upmatches: INFO
+    org.springframework.security: WARN
+    org.springframework.web: WARN

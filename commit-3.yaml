@@ -1,0 +1,160 @@
+# Commit 3: AOP-based logging with observability
+# feat(logging): add aop-based logging with observability
+sourceRepository: "./commits"
+sourceType: zip
+
+files:
+  # Updated gitignore
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: ".gitignore"
+    destinationPath: ".gitignore"
+
+  # Checkstyle suppressions
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "configurations/checkstyle-suppressions.xml"
+    destinationPath: "configurations/checkstyle-suppressions.xml"
+
+  # Updated pom.xml with security, actuator, micrometer
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "pom.xml"
+    destinationPath: "pom.xml"
+
+  # Logging aspect
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/logging/aspects/LogAspect.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/logging/aspects/LogAspect.java"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/logging/constants/AspectConstant.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/logging/constants/AspectConstant.java"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/logging/exceptions/MethodExecutionException.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/logging/exceptions/MethodExecutionException.java"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/logging/properties/LogAspectProperties.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/logging/properties/LogAspectProperties.java"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/logging/properties/LokiProperties.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/logging/properties/LokiProperties.java"
+
+  # Metrics configuration
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/metrics/configurations/MetricsConfiguration.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/metrics/configurations/MetricsConfiguration.java"
+
+  # Tracing configuration
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/tracing/configurations/TracingConfiguration.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/tracing/configurations/TracingConfiguration.java"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/tracing/filters/TracingMdcFilter.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/tracing/filters/TracingMdcFilter.java"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/shared/tracing/properties/TracingProperties.java"
+    destinationPath: "src/main/java/com/example/myapp/shared/tracing/properties/TracingProperties.java"
+
+  # Logback configuration
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/resources/logback-spring.xml"
+    destinationPath: "src/main/resources/logback-spring.xml"
+
+  # Updated documentation
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "docs/01-architecture/decisions/0004-enhanced-observability-and-security-stack.md"
+    destinationPath: "docs/01-architecture/decisions/0004-enhanced-observability-and-security-stack.md"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "docs/03-technical/setup.md"
+    destinationPath: "docs/03-technical/setup.md"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "docs/04-operations/configuration.md"
+    destinationPath: "docs/04-operations/configuration.md"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "docs/04-operations/deployment.md"
+    destinationPath: "docs/04-operations/deployment.md"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "docs/04-operations/grafana-dashboards.md"
+    destinationPath: "docs/04-operations/grafana-dashboards.md"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "docs/04-operations/observability-stack.md"
+    destinationPath: "docs/04-operations/observability-stack.md"
+
+  # Grafana setup
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/compose.yaml"
+    destinationPath: "grafana/compose.yaml"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/loki.yaml"
+    destinationPath: "grafana/loki.yaml"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/prometheus.yaml"
+    destinationPath: "grafana/prometheus.yaml"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/tempo.yaml"
+    destinationPath: "grafana/tempo.yaml"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/provisioning/dashboards/dashboards.yaml"
+    destinationPath: "grafana/provisioning/dashboards/dashboards.yaml"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/provisioning/datasources/datasources.yaml"
+    destinationPath: "grafana/provisioning/datasources/datasources.yaml"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/dashboards/k6-dashboard.json"
+    destinationPath: "grafana/dashboards/k6-dashboard.json"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/dashboards/postgres-dashboard.json"
+    destinationPath: "grafana/dashboards/postgres-dashboard.json"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/dashboards/upmatches-dashboard.json"
+    destinationPath: "grafana/dashboards/upmatches-dashboard.json"
+
+  # K6 load testing
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/k6/.env.example"
+    destinationPath: "grafana/k6/.env.example"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/k6/README.md"
+    destinationPath: "grafana/k6/README.md"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/k6/lib/auth.js"
+    destinationPath: "grafana/k6/lib/auth.js"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/k6/lib/data-generator.js"
+    destinationPath: "grafana/k6/lib/data-generator.js"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/k6/run-tests.sh"
+    destinationPath: "grafana/k6/run-tests.sh"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/k6/stress-test.js"
+    destinationPath: "grafana/k6/stress-test.js"
+
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "grafana/k6/test.js"
+    destinationPath: "grafana/k6/test.js"
+
+  # Updated main application
+  - commit: "fc14b4123e206a888e42b863f64045e67286f96a"
+    sourcePath: "src/main/java/com/upmatches/app/UpmatchesApplication.java"
+    destinationPath: "src/main/java/com/example/myapp/MyApplication.java"

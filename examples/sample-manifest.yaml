@@ -1,0 +1,53 @@
+# SmartBootstrapper Sample Manifest
+# This manifest defines files to harvest from a source Git repository
+# and where to place them in the new project.
+
+# Path to the source Git repository
+sourceRepository: /path/to/source/repository
+
+# List of files to harvest
+files:
+  # Java source files - these will be refactored to use the new package name
+  - commit: abc1234567890abcdef1234567890abcdef123456
+    sourcePath: src/main/java/com/oldcompany/service/UserService.java
+    destinationPath: src/main/java/com/newcompany/myapp/service/UserService.java
+
+  - commit: abc1234567890abcdef1234567890abcdef123456
+    sourcePath: src/main/java/com/oldcompany/repository/UserRepository.java
+    destinationPath: src/main/java/com/newcompany/myapp/repository/UserRepository.java
+
+  - commit: abc1234567890abcdef1234567890abcdef123456
+    sourcePath: src/main/java/com/oldcompany/model/User.java
+    destinationPath: src/main/java/com/newcompany/myapp/model/User.java
+
+  - commit: abc1234567890abcdef1234567890abcdef123456
+    sourcePath: src/main/java/com/oldcompany/controller/UserController.java
+    destinationPath: src/main/java/com/newcompany/myapp/controller/UserController.java
+
+  # Configuration files - package references will be updated
+  - commit: def5678901234567890abcdef1234567890123456
+    sourcePath: src/main/resources/application.properties
+    destinationPath: src/main/resources/application.properties
+
+  - commit: def5678901234567890abcdef1234567890123456
+    sourcePath: src/main/resources/application-dev.yml
+    destinationPath: src/main/resources/application-dev.yml
+
+  # XML configuration files
+  - commit: ghi9012345678901234567890abcdef12345678901
+    sourcePath: src/main/resources/spring/beans.xml
+    destinationPath: src/main/resources/spring/beans.xml
+
+  # Test files
+  - commit: abc1234567890abcdef1234567890abcdef123456
+    sourcePath: src/test/java/com/oldcompany/service/UserServiceTest.java
+    destinationPath: src/test/java/com/newcompany/myapp/service/UserServiceTest.java
+
+  # Static resources (won't be refactored, just copied)
+  - commit: jkl0123456789012345678901234567890abcdef12
+    sourcePath: src/main/resources/static/css/styles.css
+    destinationPath: src/main/resources/static/css/styles.css
+
+  - commit: jkl0123456789012345678901234567890abcdef12
+    sourcePath: src/main/resources/templates/index.html
+    destinationPath: src/main/resources/templates/index.html
